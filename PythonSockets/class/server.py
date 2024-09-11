@@ -10,12 +10,13 @@ PORT_NUMBER = 1235
 serverSock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
 
 # Associate the socket with the port
-serverSock.bind(('', PORT_NUMBER)) 
+serverSock.bind(('', PORT_NUMBER)) # The server is listening on port 1235
 
 # Start listening for incoming connections (we can have
 # at most 100 connections waiting to be accepted before
 # the server starts rejecting new connections)
-serverSock.listen(100)
+serverSock.listen(100) #So the server is now listening for calls from the client. I can have a queue no more of 100 people. 
+#Now If one ddoss this server, the server crashes cus the connections exceeds 100?
 
 # Keep accepting connections forever
 while True:
@@ -23,15 +24,17 @@ while True:
 	print("Waiting for clients to connect...")
 	
 	# Accept a waiting connection
-	cliSock, cliInfo = serverSock.accept()
+	cliSock, cliInfo = serverSock.accept() #Three way handshake applies here but in simple words, this line of code means 
+	#if a client is waiting, accept them and communicate with them. The CliSock is used to open a session for the client and CliInfo allows
+	#them to communicate with the server.
 	
-	print("Client connected from: " + str(cliInfo))
+	print("Client connected from: " + str(cliInfo)) #gets where they connected from
 	
 	# Receive the data the client has to send.
 	# This will receive at most 1024 bytes
 	cliMsg = cliSock.recv(1024)
 	
-	# The string containing the uppercased message
+	# The string containing the uppercased message. What is upper cased message? 
 	upperMsgStr = cliMsg.decode().upper()
 	
 	print("Client sent " + str(cliMsg.decode()))
