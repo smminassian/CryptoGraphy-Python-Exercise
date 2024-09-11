@@ -40,7 +40,13 @@ while True:
 	print("Client sent " + str(cliMsg.decode()))
 
 	# Send the upper-cased string back to the client
-	cliSock.send(upperMsgStr.encode())
+	capString = cliMsg.decode().upper()
+
+ #Before I send the clients message, I need to encode it cus it needs to be encrypted when going across the data link?
+	cliSock.send(capString.encode())
 	
 	# Hang up the client's connection
 	cliSock.close()
+
+
+#It adds a b to indicate that it is bytes. It adds this b because we said cliSock.send(capString.encode())
